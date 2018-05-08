@@ -7,26 +7,5 @@
   <body>
     <p id="msg">I can't believe Tweeter now supports chunking my messages, so I don't have to do it myself.</p>
   </body>
-  <script>
-      var msg = document.getElementById("msg").textContent;
-      var lines = [""];
-      var counter = 0;
-      var index = 0;
-      for(var i = 0; i < msg.length; i++)
-      {
-        counter = counter + 1;
-        var str1 = lines[index];
-        if(counter + 4 < 50)
-        {
-          lines[index] = str1.concat(msg.charAt(i));
-        }
-        else {
-          index++;
-          str1 = "";
-          lines[index] = str1.concat(msg.charAt(i));
-          counter = 0;
-        }
-      }
-      console.log(lines);
-  </script>
 </html>
+<script src="index.js"></script>
