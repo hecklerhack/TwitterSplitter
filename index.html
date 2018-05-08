@@ -2,10 +2,37 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Tweeter</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
-    <p id="msg">I can't believe Tweeter now supports chunking my messages, so I don't have to do it myself.</p>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <div class="card mt-5 mb-5">
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <label for="tweet">Enter your tweet:</label>
+                  <textarea  id="tweet" placeholder="Your tweet here" class="form-control"></textarea>
+                </div>
+                <button type="button" class="btn btn-info btn-block" id="enter" name="enter">Submit</button>
+              </form>
+            </div>
+          </div>
+          <div id="tweetBoard">
+            <h5>Tweet Board</h5><hr>
+            <div class="card bg-transparent text-info border-info">
+              <div class="card-body" id="tweetHolder">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+    </div>
   </body>
 </html>
 <script src="index.js"></script>
