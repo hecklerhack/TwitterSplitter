@@ -3,32 +3,46 @@ document.getElementById("enter").addEventListener('click', splitMessage);
 function splitMessage(e)
 {
   var msg = document.getElementById("tweet").value;
+  var splitTweet = msg.split(" ");
   var lines = [""];
   var counter = 0;
   var index = 0;
-  for(var i = 0; i < msg.length; i++)
+
+  var board = document.getElementById("tweetBoard");
+
+  for(var i = 0; i < splitTweet.length; i++)
   {
-    counter = counter + 1;
+    var tweet = splitTweet[i];
+    if(tweet.length > 50)
+    {
+      board.innerHTML = "<div class='alert alert-danger' role='alert'>Error: Can't split</div>";
+      return false;
+    }
+    tweet +=  " ";
+    counter = counter + tweet.length;
+    console.log(counter);
     var str1 = lines[index];
     if(counter + 4 < 50)
     {
-      lines[index] = str1.concat(msg.charAt(i));
+      lines[index] = str1.concat(tweet);
     }
     else {
       index++;
       str1 = "";
-      lines[index] = str1.concat(msg.charAt(i));
-      counter = 0;
+      lines[index] = str1.concat(tweet);
+      str1 = lines[index];
+      counter = str1.length;
     }
   }
 
-  var board = document.getElementById("tweetHolder");
-
+  board.innerHTML="";
   for(var j = 0; j < lines.length; j++)
   {
     var str2 = (j+1) + "/" + lines.length + " ";
     lines[j] = str2.concat(lines[j]);
-    board.insertAdjacentHTML("beforeend", lines[j] + "<br>");
+    //console.log(lines[j]);
+    board.innerHTML += "<div class='card bg-transparent text-info border-info'><div class='card-body'>"+lines[j] +"</div></div>";
   }
+    document.getElementById('tweetForm').reset();
 //  board.insertAdjacentHTML("beforeend", "</div></div>");
 }
