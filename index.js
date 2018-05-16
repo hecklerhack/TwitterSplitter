@@ -1,10 +1,22 @@
-document.getElementById("enter").addEventListener('click', splitMessage);
+document.getElementById("enter").addEventListener('click', main);
 
-
-function splitMessage(e)
+function main(e)
 {
   var board = document.getElementById("tweetBoard");  //where output is placed
   var msg = document.getElementById("tweet").value;   //the whole tweet
+
+  var lines = splitMessage(board, msg);
+
+  if(lines == false)
+  {
+    return false;
+  }
+  printChunks(board, lines);
+}
+
+
+function splitMessage(board, msg)
+{
   var splitTweet = msg.split(/\s/); //split by whitespace
   var counter = 0;                //for counting the words in the tweets
   var charLimit = 50;             //character limit
@@ -20,16 +32,16 @@ function splitMessage(e)
     cause the characters of strings to exceed the char limit (on worst case) and result in making 10 splits instead.
     Thus, the reason why I made an estimateSplit and actualSplit.
   */
-  var estimateSplit = Math.round(msg.length / charLimit);
+  var estimateSplit = 1;  //default estimate where tweet may not be split
   var actualSplit = 1;
-
   var lines = [""];
 
-  while(actualSplit != estimateSplit)
+  do
   {
     var indicator = 1 + "/" + estimateSplit + " ";    //indicator would start at 1
     counter += indicator.length;                      //counts indicator length within character limit
     lines[0] = indicator;                             //initiate first indicator to the first line
+
     for(var i = 0; i < splitTweet.length; i++)
     {
       var word = splitTweet[i];
@@ -77,15 +89,17 @@ function splitMessage(e)
       actualSplit = 1;
       counter = 0;
     }
-  }
+  }while(actualSplit != estimateSplit);
+  return lines;
+}
 
+function printChunks(board, lines)
+{
   //print lines of tweets
   board.innerHTML="";
   for(var j = 0; j < lines.length; j++)
   {
-    //var str2 = (j+1) + "/" + lines.length + " ";
-    //lines[j] = str2.concat(lines[j]);
     board.innerHTML += "<div class='card bg-transparent text-info border-info'><div class='card-body'>"+lines[j] +"</div></div>";
   }
-    document.getElementById('tweetForm').reset();
+  document.getElementById('tweetForm').reset();
 }
